@@ -30,7 +30,7 @@ app.use('/users', usersRouter);
     console.log('Synchronizing the models with the database...');
     await sequelize.sync();
   } catch(error) {
-    console.error('Error connecting to the database)
+    console.error('Error connecting to the database: ', error);
     }
 })();
 
