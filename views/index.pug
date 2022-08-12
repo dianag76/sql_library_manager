@@ -3,7 +3,7 @@ extends layout
 block content
   h1 Books 
   p 
-    a.button(href='books/new') Create New Book 
+    a.button(href='/books/new') Create New Book 
 
     table 
       thread  
@@ -13,12 +13,12 @@ block content
           th Genre 
           th Year 
         tbody 
-          each book in findAllBooks 
-          tr 
-            td 
-              a(href='/books/'+ book.id)  #{book.title}
-            td #{book.author}
-            td #{book.genre}
-            td #{book.year}
+          each book in books
+            tr 
+              td 
+                a(href='/books/'+ book.id)  #{book.title}
+              td #{book.author}
+              td #{book.genre}
+              td #{book.year}
 
 

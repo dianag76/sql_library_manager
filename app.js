@@ -1,7 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-const port = 3001;
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const {sequelize} = require('./models');
@@ -19,17 +18,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // middleware for serving static files 
-app.use('/static', express.static('public'));
+app.use(express.static(path.join(__dirname, "public")));
 
 /* Get generated error route - create and throw 500 server error */ 
 app.get('/routes', (req, res, next) => {
     res.render('user');
 });
-
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
-});
-
 
 //test connection to the data base and sync the model 
 app.use('/', indexRouter);
