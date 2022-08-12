@@ -52,7 +52,7 @@ router.get('/books/:id', (async(req, res) =>{
 // post /books/:id - Updates book info in the database
 router.post(
   "/:id/edit",
-  asyncHandler(async (req, res) => {
+  (async (req, res) => {
     let books;
     try {
       books = await Book.findByPk(req.params.id);
@@ -81,7 +81,7 @@ router.post(
 // post /books/:id/delete - Deletes a book. Careful, this can’t be undone. It can be helpful to create a new “test” book to test deleting
 router.post(
   "/book:id/delete",
-  asyncHandler(async (req, res) => {
+  (async (req, res) => {
     const books = await Book.findByPk(req.params.id);
     if (book) {
       await article.destroy();
