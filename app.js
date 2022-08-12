@@ -21,10 +21,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // middleware for serving static files 
-app.set('view engine', 'pug');
 app.use('/static', express.static('public'));
 
 
@@ -43,21 +41,6 @@ app.get('/routes', (req, res, next) => {
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
 });
-
-// Handling errors
-// app.use((err, req, res, next) => {
-//     if(err){
-//         const err = new Error("Oops.Page not found")
-//         err.status = 404;
-//         console.log(err);
-//         next(err);
-//     }
-// });
-
-// 
-
-
-
 
 
 //test connection to the data base and sync the model 
@@ -96,19 +79,6 @@ app.use((err, req, res, next) => {
 });
 
 
-// // app.use((req, res, next) => {
-//      next(createError(404));
 
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 module.exports = app;
