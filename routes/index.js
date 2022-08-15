@@ -53,39 +53,31 @@ router.get('/books/:id', (async(req, res) =>{
 router.post('/books/:id',(async (req, res) => {
     let book;
     try {
-      book = await Book.findByPk(req.params.id);
+      const book = await Book.findByPk(req.params.id);
       if (book) {
-        await Book.update(req.body);
-        res.redirect('/books');
+        await book.update(req.body);
       } else {
         res.render('page-not-found');
       }
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
         book = await Book.build(req.body);
-        book.id = req.params.id;
-        res.render('update-book', {books, errors, 
-          title: "Update Book Information",
-        });
+        res.render("books/new", {books, errors: error.errors,
+          title: "New Book"});
       } else {
         throw error;
       }
     }
-  })
-);
+    res.redirect('/books');
+  }));
 
 // post /books/:id/delete - Deletes a book. Careful, this can’t be undone. It can be helpful to create a new “test” book to test deleting
 router.post('/books:id/delete',
-  (async (req, res) => {
+  async (req, res) => {
     const book = await Book.findByPk(req.params.id);
-    if (book) {
-      await article.destroy();
+      await book.destroy();
       res.redirect('/books');
-    } else {
-      res.render('page-not-found');
-    }
-  })
-);
+  });
 
 
 
