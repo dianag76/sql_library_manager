@@ -19,24 +19,24 @@ router.get('/books', async function (req, res, next) {
 
 // get /books/new - Shows the create new book form
 router.get('/books/new', (req,res) => {
-  res.render('new-book',{books: Book.build(), title: 'New Book'})
+  res.render('new-book');
 });
 
+
 // post /books/new - Posts a new book to the database
-router.post('/books/new', (async (req, res) => {
-  let book;
+router.post("/books/new", async (req, res) => {
   try {
-    book = await Book.create(req.body);
-    res.redirect('/books');
+    await Book.create(req.body);
+    res.redirect("/books");
   } catch (error) {
     if(error.name === "SequelizeValidationError") {
-      article = await Book.build(req.body);
-      res.render('new-book', { books, error, title: 'New Book' })
+      res.render('new-book', { 
+        errors: error.errors });
     } else {
       throw error;
     }  
   }
-}));
+});
 
 
 // get /books/:id - Shows book detail form
