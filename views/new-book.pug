@@ -9,19 +9,20 @@ html
     h2.error Oh No! 
       ul.error 
         li #{error.message}
+
   form(action='/books/new', method ='post')
     p   
       label(for='title') Title
-      input#title(name='title' type='text' value=book.title)
+      input(name='title' type='text' value=book.title)
     p   
       label(for='author') Author
-      input#author(name='author' type='text' value=book.author)
+      input(name='author' type='text' value=book.author)
     p   
       label(for='genre') Genre
-      input#genre(name='genre' type='text' value=book.genre)
+      input(name='genre' type='text' value=book.genre)
     p   
       label(for='year') Year
-      input#year(name='year' type='integer' value=book.year)
+      input(name='year' type='integer' value=book.year)
     p   
       input(type='submit' value='Create New Book')
     p 

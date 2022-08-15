@@ -12,14 +12,14 @@ router.get("/", (req, res, next) => {
 });
 
 //shows full list of books
-router.get("/books", async function (req, res, next) {
+router.get('/books', async function (req, res, next) {
   const books = await Book.findAll();
   res.render('index', {books});
 });
 
 // get /books/new - Shows the create new book form
 router.get('/books/new', (req,res) => {
-  res.render('new-book',{book: Book.build(), title: 'New Book'})
+  res.render('new-book',{books: Book.build(), title: 'New Book'})
 });
 
 // post /books/new - Posts a new book to the database
@@ -31,7 +31,7 @@ router.post('/books/new', (async (req, res) => {
   } catch (error) {
     if(error.name === "SequelizeValidationError") {
       article = await Book.build(req.body);
-      res.render('new-book', { book, error, title: 'New Book' })
+      res.render('new-book', { books, error, title: 'New Book' })
     } else {
       throw error;
     }  
@@ -58,15 +58,13 @@ router.post('/books/:id',(async (req, res) => {
         await Book.update(req.body);
         res.redirect('/books');
       } else {
-        res.sendStatus(404);
+        res.render('page-not-found');
       }
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
         book = await Book.build(req.body);
         book.id = req.params.id;
-        res.render("books/edit", {
-          book,
-          errors: error.errors,
+        res.render('update-book', {books, errors, 
           title: "Update Book Information",
         });
       } else {
@@ -77,15 +75,14 @@ router.post('/books/:id',(async (req, res) => {
 );
 
 // post /books/:id/delete - Deletes a book. Careful, this can’t be undone. It can be helpful to create a new “test” book to test deleting
-router.post(
-  "/book:id/delete",
+router.post('/books:id/delete',
   (async (req, res) => {
-    const books = await Book.findByPk(req.params.id);
+    const book = await Book.findByPk(req.params.id);
     if (book) {
       await article.destroy();
-      res.redirect("/book");
+      res.redirect('/books');
     } else {
-      res.sendStatus(404);
+      res.render('page-not-found');
     }
   })
 );
@@ -93,3 +90,6 @@ router.post(
 
 
 module.exports = router;
+
+
+//delete ajust book/s for redirect ,
