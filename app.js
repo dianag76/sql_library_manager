@@ -6,7 +6,6 @@ var logger = require('morgan');
 const {sequelize} = require('./models');
 var indexRouter = require('./routes/index');
 const { resolveSoa } = require('dns');
-// var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
@@ -36,11 +35,6 @@ app.use('/', indexRouter);
     console.error('Error connecting to the database: ', error);
     }
 })();
-
-// app.use('/userRoutes'); do for user
-
-
-
 
 
 /* Error Handlers*///404 handler

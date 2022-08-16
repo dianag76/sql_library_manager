@@ -3,8 +3,6 @@ const { route } = require('../app');
 var router = express.Router();
 const Book = require("../models").Book;//usually singular 
 
-
-
 /* GET home page. */
 
 router.get("/", (req, res, next) => {
@@ -38,19 +36,18 @@ router.post("/books/new", async (req, res) => {
   }
 });
 
-
 // get /books/:id - Shows book detail form
-router.get('/books/:id', (async(req, res) =>{
+router.get('/books/:id', async(req, res) =>{
   const book = await Book.findByPk(req.params.id);
   if(book){
     res.render('update-book', {book,title: book.title});
     } else {
      res.render('page-not-found');
     }
-}));
+});
 
 // post /books/:id - Updates book info in the database
-router.post('/books/:id',(async (req, res) => {
+router.post('/books/:id', async (req, res) => {
     let book;
     try {
       const book = await Book.findByPk(req.params.id);
@@ -70,19 +67,16 @@ router.post('/books/:id',(async (req, res) => {
         throw error;
       }
     }
-  }));
+  });
 
-// post /books/:id/delete - Deletes a book. Careful, this can’t be undone. It can be helpful to create a new “test” book to test deleting
+// post /books/:id/delete - Deletes a book.
 router.post('/books/:id/delete',
-  (async (req, res) => {
+  async (req, res) => {
     const book = await Book.findByPk(req.params.id);
       await book.destroy();
       res.redirect('/books');
-  }));
-
-
+  });
 
 module.exports = router;
 
 
-//delete ajust book/s for redirect ,
