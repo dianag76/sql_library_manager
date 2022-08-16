@@ -2,7 +2,7 @@ extends layout.pug
 block content
   h1 New Book
   form(action="/books/new" method="POST")
-    if(errors)
+    if(errors) 
       h2.error Oops an error occurred!
       ul.error
         each error in errors
@@ -23,3 +23,5 @@ block content
       input(type="submit" value="Create New Book")
     p
       a.button(href="/") Cancel
+
+      //- line 5-9 validation errors
